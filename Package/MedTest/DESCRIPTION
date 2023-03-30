@@ -1,0 +1,10 @@
+Package: MedTest
+Type: Package
+Title: A distance-based omnibus test for detecting mediation effects
+Version: 1.1
+Date: 2019-02-01
+Author: Jun Chen <chen.jun2@mayo.edu>, Jie Zhang <jz266@njit.edu>, Zhi Wei <zhiwei@njit.edu>
+Maintainer: Jun Chen <chen.jun2@mayo.edu>, Jie Zhang <jz266@njit.edu>, Zhi Wei <zhiwei@njit.edu>
+Depends: vegan, matrixStats
+Description: It provides a distance-based omnibus test to detect significant mediation effects among the high-dimensional microbiome data. It considers both the phylogenetic tree-based and non-treed-based distances, and is capable to identify mediating effects in either abundance or presence-absence data.
+License: GPL (version 2 or later).
