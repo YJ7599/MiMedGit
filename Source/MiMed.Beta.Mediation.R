@@ -505,10 +505,6 @@ MedTest.bin.bin.plot1 = function(med.test.out, beta.treatvar.out, beta.outvar.ou
   
 }
 
-med.test.out <- beta_1 
-beta.treatvar.out <- beta_2
-beta.outvar.out <- beta_3 
-
 MedTest.bin.bin.plot2 = function(med.test.out, beta.treatvar.out, beta.outvar.out) {
   
   par(mfrow = c(3, 2))
