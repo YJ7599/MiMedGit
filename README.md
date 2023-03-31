@@ -45,6 +45,6 @@ runGitHub('MiMedGit', 'yj7599', ref = 'main')
 
 ## Troubleshooting Tips
 
-If you have any problems for using MiMed, please report in Issues (https://github.com/YJ7599/MiMedGit/issues) or email Hyo Jung Jang (hyojung.jang@stonybrook.edu).
+If you have any problems for using MiMed, please report in issues (https://github.com/YJ7599/MiMedGit/issues) or email Hyo Jung Jang (hyojung.jang@stonybrook.edu).
 
 * Tip 1. For the local implementation, to ensure no fail builds, you may need to remove all the pre-installed R packages on your computer or start it all over again after re-installing R and R Studio completely.
