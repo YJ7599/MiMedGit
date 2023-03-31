@@ -2911,10 +2911,6 @@ server <- function(input, output, session) {
             
           })
           
-          beta_1 <<- Med.test.out
-          beta_2 <<- beta.Treatvar.out
-          beta_3 <<- beta.Outvar.out
-          
           output$beta_graph_plot2 <- renderPlot({
             
             if (Treatment.type == "Binary" & Outcome.type == "Binary") {
