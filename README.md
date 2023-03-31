@@ -1,18 +1,12 @@
 # MiMed
 
-Title: MiMed: Comprehensive microbiome causal mediation analysis on user-friendly web interfaces
+Title: Comprehensive microbiome causal mediation analysis using MiMed on user-friendly web interfaces
 
 Version: 1.0.0
 
 Maintainer: Hyo Jung Jang <hyojung.jang@stonybrook.edu>
 
-Description: MiPair is an integrative web cloud service for design-based comparative analysis with paired microbiome data. Pairing (or blocking) is a design technique that is widely used in comparative microbiome studies to efficiently control for the effects of potential confounders (e.g., genetic, environmental, or behavioral factors). Some typical paired (block) designs for human microbiome studies are repeated measures designs that profile each subject's microbiome twice (or more than twice) 1) for pre and post treatments to see the effects of a treatment on microbiome, or 2) for different organs of the body (e.g., gut, mouth, skin) to see the disparity in microbiome between (or across) organs. MiPair enables comprehensive comparative analysis in sequence for such paired microbiome studies on user-friendly web environments. Detailed features are as follows.
-
-* A variety of data uploading, quality controlling, analytic and graphical procedures that produce publishable data, tables, and plots
-* Comparative analysis between (or across) groups
-* Comparative analysis between baseline (or reference) and other groups
-* Parametric or non-parametric tests for incomplete or complete block designs
-* Both ecological (alpha- and beta-diversity) and taxonomic (e.g., phylum, class, order, family, genus, species) analysis
+Description: MiMed is a unified web cloud platform for microbiome mediation analysis that probes for the roles of the microbiome as a mediator that transmits the effect of a treatment (e.g., environmental, behavioral or medical exposures) to an outcome (e.g., health or disease status). The main features of MiMed are as follows. First, MiMed can survey the microbiome in various spheres (1) as a whole microbial ecosystem using different ecological measures (e.g., alpha- and beta-diversity indices) (referred as Community-level Analysis) or (2) as individual microbial taxa (e.g., phyla, classes, orders, families, genera, species) using different data normalization methods (referred as Taxonomy-level Analysis). Second, MiMed enables covariate-adjusted analysis to control for potential confounding factors (e.g., age, gender), which is essential to enhance the causality of the results especially for observational studies. Third, MiMed enables a breadth of statistical inferences in both mediation effect estimation and significance testing. Finally, MiMed provides flexible and easy-to-use data processing and analytic modules and makes nice graphical representations.
 
 NeedsCompilation: No
 
@@ -24,12 +18,13 @@ License: GPL 1, GPL 2
 
 ## URLs
 
-* Web application (online implementation): http://mipair.micloud.kr
-* GitHub repository (local implementation): https://github.com/yj7599/MiPairGit
+* Web application (online implementation): 
+* GitHub repository (local implementation): https://github.com/yj7599/MiMedGit
 
 ## References
 
-* Jang H, Koh H, Gu W, Kang B. (2022) Integrative web cloud computing and analytics using MiPair for design-based comparative analysis with paired microbiome data. Scientific Reports 12:20465 https://doi.org/10.1038/s41598-022-25093-6.
+* Jang H, Park S, Koh H. (2023) Comprehensive microbiome causal mediation analysis using MiMed on user-friendly web interfaces (*In Review*). 
+
 
 ## Prerequites
 
@@ -45,11 +40,11 @@ install.packages('shiny')
 ```
 library(shiny)
 
-runGitHub('MiPairGit', 'yj7599', ref = 'main')
+runGitHub('MiMedGit', 'yj7599', ref = 'main')
 ```
 
 ## Troubleshooting Tips
 
-If you have any problems for using MiPair, please report in Issues (https://github.com/YJ7599/MiPairGit/issues) or email Hyo Jung Jang (hyojung.jang@stonybrook.edu).
+If you have any problems for using MiPair, please report in Issues (https://github.com/YJ7599/MiMedGit/issues) or email Hyo Jung Jang (hyojung.jang@stonybrook.edu).
 
 * Tip 1. For the local implementation, to ensure no fail builds, you may need to remove all the pre-installed R packages on your computer or start it all over again after re-installing R and R Studio completely.
