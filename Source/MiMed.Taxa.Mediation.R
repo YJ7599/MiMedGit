@@ -1622,7 +1622,7 @@ chat_gpt_mediation <- function(result_names, prim_var, out_var){
   chat_list <- list() 
   
   for (name in result_names){
-    #Sys.setenv(OPENAI_API_KEY = "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")
+    Sys.setenv(OPENAI_API_KEY = "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")
     past_question <- paste("What is known about", name, "on", prim_var, "and", out_var)
     chat_list[[name]] <- ask_chatgpt(past_question)
   }
