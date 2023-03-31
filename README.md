@@ -23,7 +23,7 @@ License: GPL 1, GPL 2
 
 ## References
 
-* Jang H, Park S, Koh H. (2023) Comprehensive microbiome causal mediation analysis using MiMed on user-friendly web interfaces (*In Review*). 
+* Jang H, Park S, Koh H. (2023) Comprehensive microbiome causal mediation analysis using MiMed on user-friendly web interfaces (*In review*). 
 
 
 ## Prerequites
