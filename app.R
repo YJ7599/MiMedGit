@@ -4555,6 +4555,7 @@ server <- function(input, output, session) {
                     column(width = 6.5, 
                            strong("What is known about (discovered taxon) on (treatment) and (outcome)?"), 
                            p(" ", style = "margin-bottom: +15px;"),
+                           textInput("api_gpt", label = paste0("Insert your private ChatGPT API key"), value = NULL, width = "55%"),
                            selectInput("chatgpt_rank", "Select a taxonomic rank", choices = rank.names, width = '55%'),
                            tabPanel(title = NULL, align = "center", uiOutput("chat_gpt_dact")),
                            uiOutput("other_opt_chat")),
@@ -4683,11 +4684,11 @@ server <- function(input, output, session) {
             })}) 
           
           observeEvent(input$runbtn_chat, {
-            observeEvent(c(input$chatgpt, input$rename_1, input$rename_2), {
+            observeEvent(c(input$api_git, input$chatgpt, input$rename_1, input$rename_2), {
               withProgress(message = 'Asking ChatGPT', value = 0, {
                 incProgress(0.5, message = "Asking Chat")
                 
-                chat_result <- chat_gpt_mediation(input$chatgpt, input$rename_1, input$rename_2)
+                chat_result <- chat_gpt_mediation(input$api_gpt, input$chatgpt, input$rename_1, input$rename_2)
                 
                 output$chat_vis <-renderUI({
                 tagList(box(title = NULL, width = "60%", p(paste0(paste("What is known about", input$chatgpt, "on", input$rename_1, "and", input$rename_2), "?"))),
