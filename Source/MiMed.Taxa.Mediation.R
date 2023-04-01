@@ -243,6 +243,7 @@ binary_cont <- function(vec){
   return(type)
 }
 
+
 mediation.taxon.ind <- function(sam.dat, taxon_med, 
                                 exposure, covariates, 
                                 outcome, interaction = TRUE, 
@@ -527,12 +528,13 @@ mediation.taxon.ind <- function(sam.dat, taxon_med,
 # }
 
 
+
 mediation.taxon.total <- function(sam.dat, taxa, 
                                 exposure, covariates, 
                                 outcome, interac = TRUE, 
                                 regression.method = "logistic", 
                                 method = "bootstrap", boot.method.po, n.sim = 1000, inc){
-  
+   
   outcome.type <<- binary_cont(sam.dat[,outcome])
   treat.type <<- binary_cont(sam.dat[,exposure])
   
@@ -545,7 +547,7 @@ mediation.taxon.total <- function(sam.dat, taxa,
     taxon.med <- taxa[[i]]
   
     if(treat.type == "binary"){
-      a <- mediation.taxon.ind(sam.dat, taxon.med, exposure, covariates, 
+      a <<- mediation.taxon.ind(sam.dat, taxon.med, exposure, covariates, 
                                outcome, interaction = interac, regression.method, 
                                method = method, boot.method = boot.method.po, n.sim = n.sim, inc = inc, rank = i)
       list_total[[i]] <- a$list_binary
@@ -556,7 +558,7 @@ mediation.taxon.total <- function(sam.dat, taxa,
                                              method = method, boot.method = boot.method.po,  n.sim = n.sim, inc = inc, rank = i)$list_continuous
     }
   }
-  names(list_total) <- names(taxa)[1:rank_length]
+  names(list_total) <- names(taxa)[1:5+inc]
   invisible(list_total)
 }
 
