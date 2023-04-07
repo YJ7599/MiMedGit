@@ -3006,6 +3006,13 @@ server <- function(input, output, session) {
     shinyjs::disable("treat_taxa")
     shinyjs::disable("covariates_taxa")
     
+    
+    if (input$cov_taxa == "None"){
+      covariate_taxa <- NULL
+    }else{
+      covariate_taxa <- input$covariates_taxa
+    }
+    
     withProgress(
       message = 'Calculation in progress',
       detail = 'This may take a while...', value = 0, {
@@ -3031,6 +3038,7 @@ server <- function(input, output, session) {
           interaction_taxa = FALSE 
         }
         
+        
         names(taxa) <- names(taxa_ori)
         
         if (input$choose_taxa == "Imai Method"){
@@ -3047,7 +3055,7 @@ server <- function(input, output, session) {
           if (binary_cont(chooseData$sam.dat[,input$treat_taxa]) == "binary"){
           
             
-            med_result <<- tryCatch(mediation.taxon.total(chooseData$sam.dat, taxa, input$treat_taxa, input$covariates_taxa, input$outcome_taxa, interaction_taxa, taxa_reg_type, taxa_sim_type, boot.method.po = boot.iterations, n.sim = 1000, inc = include),  #need to be adjusted (n.sim)  #here need change 
+            med_result <<- tryCatch(mediation.taxon.total(chooseData$sam.dat, taxa, input$treat_taxa, covariate_taxa, input$outcome_taxa, interaction_taxa, taxa_reg_type, taxa_sim_type, boot.method.po = boot.iterations, n.sim = 10, inc = include),  #need to be adjusted (n.sim)  #here need change 
                                     error = function(e) {
                                       message("No outcome is available!")
                                       showModal(modalDialog(div("No outcome is available!")))
@@ -3134,6 +3142,8 @@ server <- function(input, output, session) {
             
             rank.names <- c("Phylum", "Class", "Order", "Family", "Genus", "Species")[sort(rank.order)]
             
+            
+            
             if (length(taxa.name.rank[,2]) == 0){output$taxa_display = renderUI({
               tagList(
                 tabBox(title = strong(NULL, style = "color:black", side = "right"), width = NULL,
@@ -3148,7 +3158,8 @@ server <- function(input, output, session) {
                                                            }))
                                                        ),
                                                        box( title = strong("Dendrogram", style = "color:white", side = "left"), width = NULL, solidHeader = TRUE, status = "primary", 
-                                                            tabPanel(title = NULL, align = "center", uiOutput("taxa_display_dend_aa")))
+                                                            tabPanel(title = NULL, align = "center", uiOutput("taxa_display_dend_aa"))),
+                                                       
                                                        
                                                      ))
                                             ,tabPanel("ACME (Control)", align = "center",
@@ -3228,9 +3239,12 @@ server <- function(input, output, session) {
                                                              column(width = 6.5, 
                                                                     strong("What is known about (discovered taxon) on (treatment) and (outcome)?"), 
                                                                     p(" ", style = "margin-bottom: +15px;"),
+                                                                    textInput("api_gpt_overall", label = paste0("Insert your private ChatGPT API key"), value = NULL, width = "55%"),
+                                                                    p("You can visit", tags$a(href = "https://platform.openai.com/account/api-keys", "https://platform.openai.com/account/api-keys"), " to download your private ChatGPT API Key.",  style = "font-size:10pt"), 
                                                                     selectInput("chatgpt_rank_overall", "Select a taxonomic rank", choices = rank.names, width = '55%'),
                                                                     tabPanel(title = NULL, align = "center", uiOutput("taxa_chat_overall")),
-                                                                    uiOutput("other_opt_chat_overall")),
+                                                                    uiOutput("other_opt_chat_overall"),
+                                                                    uiOutput("other_opt_chat_overall_2")),
                                                              
                                                              br(), 
                                                              column(width = 4.4, uiOutput("chat_vis_overall"))
@@ -3581,43 +3595,53 @@ server <- function(input, output, session) {
               }), silent = TRUE)
               
             }
-           
-            
-            
             
             observeEvent(input$chatgpt_rank_overall, {
+              
               output$other_opt_chat_overall <- renderUI({tagList(
-                selectInput("chatgpt_ove", "Select a discovered taxon", choices = taxa.name.rank[,2][which(taxa.name.rank[,1] == input$chatgpt_rank_overall)], width = '55%'),
+                selectInput("chatgpt_ove", "Select a discovered taxon", choices = taxa.name.rank[,2][which(taxa.name.rank[,1] == input$chatgpt_rank_overall)], width = '55%'))
+              }) 
+              
+              output$other_opt_chat_overall_2 <- renderUI({tagList(
+                textInput("rename_taxon_ove", "Rename the taxon", value = input$chatgpt_ove, width = '55%'),
+                p("You can rename the taxon name.", style = "font-size:10pt"),
                 textInput("rename_1_ove", label = paste0("Rename the treatment variable"), value = exposure, width = "55%"),
                 p("You can rename the treatment variable using a human language (e.g., from ‘ecig_status’ to ‘e-cigarrette’).", style = "font-size:10pt"),
-                textInput("rename_2_ove", label = paste0("Rename the outcome variable:"), value = outcome, width = "55%"),
+                textInput("rename_2_ove", label = paste0("Rename the outcome variable"), value = outcome, width = "55%"),
                 p("You can rename the outcome variable using a human language (e.g., from ‘gingival_inflammation’ to ‘gingival inflammation’).", style = "font-size:10pt"),
                 actionButton("runbtn_chat_ove", strong("Ask!"), class = "btn-info",
-                             style="color: #000000; background-color: #FFFFFF; border-color: #2C3E50"))
-              })}) 
+                             style="color: #000000; background-color: #FFFFFF; border-color: #2C3E50")
+              )})
+              
+            }) 
             
             observeEvent(input$runbtn_chat_ove, {
-              observeEvent(c(input$chatgpt_ove, input$rename_1_ove, input$rename_2_ove), {
-                withProgress(message = 'Asking ChatGPT', value = 0, {
-                  incProgress(0.5, message = "Asking Chat")
-                  
-                  chat_result <- chat_gpt_mediation(input$chatgpt_ove, input$rename_1_ove, input$rename_2_ove)
-                  
-                  output$chat_vis_overall <-renderUI({
-                    tagList(box(title = NULL, width = "60%", p(paste0(paste("What is known about", input$chatgpt_ove, "on", input$rename_1_ove, "and", input$rename_2_ove), "?"))),
-                            box(title = NULL, width = "60%",
-                                p(chat_result)))
-                  })
-                }) 
-              })
-              
-            })}
-
+              withProgress(message = 'Asking ChatGPT', value = 0, {
+                incProgress(0.5, message = "Asking Chat")
+                
+                chat_result_ove <<- tryCatch(chat_gpt_mediation(input$api_gpt_overall, input$rename_taxon_ove, input$rename_1_ove, input$rename_2_ove), 
+                                         error = function(e) {  
+                                           message("You should insert your private ChatGPT API key!")
+                                           showModal(modalDialog(div("You should insert your private ChatGPT API key!")))
+                                           return(NULL)})
+                
+                rename_taxon_ove <- input$rename_taxon_ove
+                rename_dact_1_ove <- input$rename_1_ove
+                rename_dact_2_ove <- input$rename_2_ove
+                
+                output$chat_vis_overall <- renderUI({
+                  tagList(box(title = NULL, width = "60%", p(paste0(paste("What is known about", rename_taxon_ove, "on", rename_dact_1_ove, "and", rename_dact_2_ove, "?")))),
+                          box(title = NULL, width = "60%",
+                              p(chat_result_ove)))
+                })
+              }) 
+            })
+          }
           else {
             
             chooseData$sam.dat[[input$outcome_taxa]] <- as.numeric(chooseData$sam.dat[[input$outcome_taxa]])
             
-            med_result <<- tryCatch(mediation.taxon.total(chooseData$sam.dat, taxa, input$treat_taxa, input$covariates_taxa, input$outcome_taxa, interaction_taxa, taxa_reg_type, taxa_sim_type, boot.method.po = boot.iterations, n.sim = 1000, inc = include), 
+            med_result <<- tryCatch(mediation.taxon.total(chooseData$sam.dat, taxa, input$treat_taxa, covariate_taxa, input$outcome_taxa, interaction_taxa, taxa_reg_type, taxa_sim_type, boot.method.po = boot.iterations, n.sim = 10, inc = include), 
                                    error = function(e) {  
                                      message("No outcome is available!")
                                      showModal(modalDialog(div("No outcome is available!")))
@@ -3752,9 +3776,12 @@ server <- function(input, output, session) {
                                         column(width = 6.5, 
                                                strong("What is known about (discovered taxon) on (treatment) and (outcome)?"), 
                                                p(" ", style = "margin-bottom: +15px;"),
+                                               textInput("api_gpt_acme", label = paste0("Insert your private ChatGPT API key"), value = NULL, width = "55%"),
+                                               p("You can visit", tags$a(href = "https://platform.openai.com/account/api-keys", "https://platform.openai.com/account/api-keys"), " to download your private ChatGPT API Key.",  style = "font-size:10pt"),  
                                                selectInput("chatgpt_rank_acme", "Select a taxonomic rank", choices = rank.names, width = '55%'),
                                                tabPanel(title = NULL, align = "center", uiOutput("taxa_chat_acme")),
-                                               uiOutput("other_opt_chat_acme")),
+                                               uiOutput("other_opt_chat_acme"),
+                                               uiOutput("other_opt_chat_acme_2")),
                                         
                                         br(), 
                                         column(width = 4.4, uiOutput("chat_vis_acme"))
@@ -3788,9 +3815,6 @@ server <- function(input, output, session) {
                 )
               }), silent = TRUE)
             }
-            
-              
-            
             
             incProgress(1/10, message = "Graph")
             
@@ -3965,31 +3989,44 @@ server <- function(input, output, session) {
           
           observeEvent(input$chatgpt_rank_acme, {
             output$other_opt_chat_acme <- renderUI({tagList(
-              selectInput("chatgpt_acme", "Select a discovered taxon", choices = taxa.name.rank[,2][which(taxa.name.rank[,1] == input$chatgpt_rank_acme)], width = '55%'),
-              textInput("rename_1_acme", label = paste0("Rename the treatment variable"), value = exposure, width = "55%"),
-              p("You can rename the treatment variable using a human language (e.g., from ‘ecig_status’ to ‘e-cigarrette’).", style = "font-size:10pt"),
-              textInput("rename_2_acme", label = paste0("Rename the outcome variable:"), value = outcome, width = "55%"),
-              p("You can rename the outcome variable using a human language (e.g., from ‘gingival_inflammation’ to ‘gingival inflammation’).", style = "font-size:10pt"),
-              actionButton("runbtn_chat_acme", strong("Ask!"), class = "btn-info",
-                           style="color: #000000; background-color: #FFFFFF; border-color: #2C3E50"))
-            })}) 
-          
-          observeEvent(input$runbtn_chat_acme, {
-            observeEvent(c(input$chatgpt_acme, input$rename_1_acme, input$rename_2_acme), {
-              withProgress(message = 'Asking ChatGPT', value = 0, {
-                incProgress(0.5, message = "Asking Chat")
-                
-                chat_result <- chat_gpt_mediation(input$chatgpt_acme, input$rename_1_acme, input$rename_2_acme)
-                
-                output$chat_vis_acme <-renderUI({
-                  tagList(box(title = NULL, width = "60%", p(paste0(paste("What is known about", input$chatgpt_acme, "on", input$rename_1_acme, "and", input$rename_2_acme), "?"))),
-                          box(title = NULL, width = "60%",
-                              p(chat_result)))
-                })
-              }) 
+              selectInput("chatgpt_acme", "Select a discovered taxon", choices = taxa.name.rank[,2][which(taxa.name.rank[,1] == input$chatgpt_rank_acme)], width = '55%'))
             })
             
+            output$other_opt_chat_acme_2 <- renderUI({tagList(
+              textInput("rename_taxon_acme", "Rename the taxon", value = input$chatgpt_acme, width = '55%'),
+              p("You can rename the taxon name.", style = "font-size:10pt"),
+              textInput("rename_1_acme", label = paste0("Rename the treatment variable"), value = exposure, width = "55%"),
+              p("You can rename the treatment variable using a human language (e.g., from ‘ecig_status’ to ‘e-cigarrette’).", style = "font-size:10pt"),
+              textInput("rename_2_acme", label = paste0("Rename the outcome variable"), value = outcome, width = "55%"),
+              p("You can rename the outcome variable using a human language (e.g., from ‘gingival_inflammation’ to ‘gingival inflammation’).", style = "font-size:10pt"),
+              actionButton("runbtn_chat_acme", strong("Ask!"), class = "btn-info",
+                           style="color: #000000; background-color: #FFFFFF; border-color: #2C3E50")
+            )})
+            }) 
+          
+          observeEvent(input$runbtn_chat_acme, {
+            withProgress(message = 'Asking ChatGPT', value = 0, {
+              incProgress(0.5, message = "Asking Chat")
+              
+              chat_result_acme <<- tryCatch(chat_gpt_mediation(input$api_gpt_acme, input$rename_taxon_acme, input$rename_1_acme, input$rename_2_acme), 
+                                           error = function(e) {  
+                                             message("You should insert your private ChatGPT API key!")
+                                             showModal(modalDialog(div("You should insert your private ChatGPT API key!")))
+                                             return(NULL)})
+              
+              rename_taxon_acme <- input$rename_taxon_acme
+              rename_dact_1_acme <- input$rename_1_acme
+              rename_dact_2_acme <- input$rename_2_acme
+              
+              output$chat_vis_acme <-renderUI({
+                tagList(box(title = NULL, width = "60%", p(paste0(paste("What is known about", rename_taxon_acme, "on", rename_dact_1_acme, "and", rename_dact_2_acme, "?")))),
+                        box(title = NULL, width = "60%",
+                            p(chat_result_acme)))
+              })
+            }) 
           })
+         
+          
         }else if (input$choose_taxa == "Sobel Test"){
           
           incProgress(0.3, message = "Calculating")
@@ -4114,9 +4151,12 @@ server <- function(input, output, session) {
                       column(width = 6.5, 
                              strong("What is known about (discovered taxon) on (treatment) and (outcome)?"), 
                              p(" ", style = "margin-bottom: +15px;"),
+                             textInput("api_gpt_sobel", label = paste0("Insert your private ChatGPT API key"), value = NULL, width = "55%"),
+                             p("You can visit", tags$a(href = "https://platform.openai.com/account/api-keys", "https://platform.openai.com/account/api-keys"), " to download your private ChatGPT API Key.",  style = "font-size:10pt"), 
                              selectInput("chatgpt_rank_sobel", "Select a taxonomic rank", choices = rank.names, width = '55%'),
                              tabPanel(title = NULL, align = "center", uiOutput("taxa_chat_sobel")),
-                             uiOutput("other_opt_chat_sobel")),
+                             uiOutput("other_opt_chat_sobel"),
+                             uiOutput("other_opt_chat_sobel_2")),
                       
                       br(), 
                       column(width = 4.4, uiOutput("chat_vis_sobel"))
@@ -4184,7 +4224,8 @@ server <- function(input, output, session) {
                              p(" ", style = "margin-bottom: +15px;"),
                              selectInput("chatgpt_rank_sobel", "Select a taxonomic rank", choices = rank.names, width = '55%'),
                              tabPanel(title = NULL, align = "center", uiOutput("taxa_chat_sobel")),
-                             uiOutput("other_opt_chat_sobel")),
+                             uiOutput("other_opt_chat_sobel"),
+                             uiOutput("other_opt_chat_sobel_2")),
                       
                       br(), 
                       column(width = 4.4, uiOutput("chat_vis_sobel"))
@@ -4313,32 +4354,46 @@ server <- function(input, output, session) {
             ranks.names <- c("Phylum", "Class", "Order", "Family", "Genus")
           }
           
+          
           observeEvent(input$chatgpt_rank_sobel, {
             output$other_opt_chat_sobel <- renderUI({tagList(
-              selectInput("chatgpt_sobel", "Select a discovered taxon", choices = taxa.name.rank[,2][which(taxa.name.rank[,1] == input$chatgpt_rank_sobel)], width = '55%'),
+              selectInput("chatgpt_sobel", "Select a discovered taxon", choices = taxa.name.rank[,2][which(taxa.name.rank[,1] == input$chatgpt_rank_sobel)], width = '55%')
+              )
+            })
+            output$other_opt_chat_sobel_2 <- renderUI({tagList(
+              textInput("rename_taxon_sobel", "Rename the taxon", value = input$chatgpt_sobel, width = '55%'),
+              p("You can rename the taxon name.", style = "font-size:10pt"),
               textInput("rename_1_sobel", label = paste0("Rename the treatment variable"), value = exposure, width = "55%"),
               p("You can rename the treatment variable using a human language (e.g., from ‘ecig_status’ to ‘e-cigarrette’).", style = "font-size:10pt"),
-              textInput("rename_2_sobel", label = paste0("Rename the outcome variable:"), value = outcome, width = "55%"),
+              textInput("rename_2_sobel", label = paste0("Rename the outcome variable"), value = outcome, width = "55%"),
               p("You can rename the outcome variable using a human language (e.g., from ‘gingival_inflammation’ to ‘gingival inflammation’).", style = "font-size:10pt"),
               actionButton("runbtn_chat_sobel", strong("Ask!"), class = "btn-info",
-                           style="color: #000000; background-color: #FFFFFF; border-color: #2C3E50"))
-            })}) 
+                           style="color: #000000; background-color: #FFFFFF; border-color: #2C3E50")
+              
+            )})}) 
+          
           
           observeEvent(input$runbtn_chat_sobel, {
-            observeEvent(c(input$chatgpt_sobel, input$rename_1_sobel, input$rename_2_sobel), {
-              withProgress(message = 'Asking ChatGPT', value = 0, {
-                incProgress(0.5, message = "Asking Chat")
-                
-                chat_result <- chat_gpt_mediation(input$chatgpt_sobel, input$rename_1_sobel, input$rename_2_sobel)
-                
-                output$chat_vis_sobel <-renderUI({
-                  tagList(box(title = NULL, width = "60%", p(paste("What is known about", input$chatgpt_sobel, "on", input$rename_1_sobel, "and", input$rename_2_sobel, "?"))),
-                          box(title = NULL, width = "60%",
-                              p(chat_result)))
-                })
-              }) 
-            })
-          }) 
+            withProgress(message = 'Asking ChatGPT', value = 0, {
+              incProgress(0.5, message = "Asking Chat")
+              
+              chat_result_sobel <<- tryCatch(chat_gpt_mediation(input$api_gpt_dact, input$rename_taxon_sobel, input$rename_1_sobel, input$rename_2_sobel), 
+                                       error = function(e) {  
+                                         message("You should insert your private ChatGPT API key!")
+                                         showModal(modalDialog(div("You should insert your private ChatGPT API key!")))
+                                         return(NULL)})
+              
+              rename_taxon_sobel <- input$rename_taxon_sobel
+              rename_sobel_1 <- input$rename_1_sobel
+              rename_sobel_2 <- input$rename_2_sobel
+              
+              output$chat_vis_sobel <- renderUI({
+                tagList(box(title = NULL, width = "60%", p(paste0(paste("What is known about", rename_taxon_sobel, "on", rename_sobel_1, "and", rename_sobel_2), "?"))),
+                        box(title = NULL, width = "60%",
+                            p(chat_result_sobel)))
+              })
+            }) 
+          })
           
           
         } else if (input$choose_taxa == "DACT") {
@@ -4347,13 +4402,12 @@ server <- function(input, output, session) {
           
           exposure <- input$treat_taxa
           outcome <- input$outcome_taxa 
-          covariates <- input$covariates_taxa
+          covariates <- covariate_taxa
           
           correct = "JC"
           
           chooseData$sam.dat[[outcome]] <- as.numeric(chooseData$sam.dat[[outcome]])
           
-          print(1)
           
           if (length(table(chooseData$sam.dat[, input$outcome_taxa])) != 2){
             result_dact_ind <<- tryCatch(result_med_out_dact(chooseData$sam.dat, taxa, exposure, outcome, covariates, reg = "linear", interac = FALSE), error = function(e) {  
@@ -4513,7 +4567,6 @@ server <- function(input, output, session) {
             )
           })
           
-          
           taxa.name.rank <<- taxa.chat.rank.name(result_dact_new, taxa.names.rank(taxa, include), include, "Est", TRUE)
           rank.names <- names(table(taxa.name.rank[,1]))
           
@@ -4524,7 +4577,6 @@ server <- function(input, output, session) {
           }
           
           rank.names <- c("Phylum", "Class", "Order", "Family", "Genus", "Species")[sort(rank.order)]
-          
           
           if (length(taxa.name.rank[,2]) == 0){
             output$taxa_display <- renderUI({
@@ -4555,10 +4607,12 @@ server <- function(input, output, session) {
                     column(width = 6.5, 
                            strong("What is known about (discovered taxon) on (treatment) and (outcome)?"), 
                            p(" ", style = "margin-bottom: +15px;"),
-                           textInput("api_gpt", label = paste0("Insert your private ChatGPT API key"), value = NULL, width = "55%"),
-                           selectInput("chatgpt_rank", "Select a taxonomic rank", choices = rank.names, width = '55%'),
+                           textInput("api_gpt_dact", label = paste0("Insert your private ChatGPT API key"), value = NULL, width = "55%"),
+                           p("You can visit", tags$a(href = "https://platform.openai.com/account/api-keys", "https://platform.openai.com/account/api-keys"), " to download your private ChatGPT API Key.",  style = "font-size:10pt"), 
+                           selectInput("chatgpt_rank_dact", "Select a taxonomic rank", choices = rank.names, width = '55%'),
                            tabPanel(title = NULL, align = "center", uiOutput("chat_gpt_dact")),
-                           uiOutput("other_opt_chat")),
+                           uiOutput("other_opt_chat"),
+                           uiOutput("other_opt_chat_2")),
                     
                     br(), 
                     
@@ -4588,7 +4642,6 @@ server <- function(input, output, session) {
               )
             )
           })
-          
           
           result_down <- list() 
           
@@ -4672,36 +4725,84 @@ server <- function(input, output, session) {
             })
           } 
           
-          observeEvent(input$chatgpt_rank, {
+          observeEvent(input$chatgpt_rank_dact, {
             output$other_opt_chat <- renderUI({tagList(
-              selectInput("chatgpt", "Select a discovered taxon", choices = taxa.name.rank[,2][[which(taxa.name.rank[,1] == input$chatgpt_rank)]], width = '55%'),
+              selectInput("chatgpt_sobel", "Select a discovered taxon", choices = taxa.name.rank[,2][[which(taxa.name.rank[,1] == input$chatgpt_rank_dact)]], width = '55%')
+              )
+            })
+            
+            output$other_opt_chat_2 <- renderUI({tagList(
+              textInput("rename_taxon", "Rename the taxon", value = input$chatgpt_sobel, width = '55%'),
+              p("You can rename the taxon name.", style = "font-size:10pt"),
               textInput("rename_1", label = paste0("Rename the treatment variable"), value = exposure, width = "55%"),
               p("You can rename the treatment variable using a human language (e.g., from ‘ecig_status’ to ‘e-cigarrette’).", style = "font-size:10pt"),
-              textInput("rename_2", label = paste0("Rename the outcome variable:"), value = outcome, width = "55%"),
+              textInput("rename_2", label = paste0("Rename the outcome variable"), value = outcome, width = "55%"),
               p("You can rename the outcome variable using a human language (e.g., from ‘gingival_inflammation’ to ‘gingival inflammation’).", style = "font-size:10pt"),
               actionButton("runbtn_chat", strong("Ask!"), class = "btn-info",
-                           style="color: #000000; background-color: #FFFFFF; border-color: #2C3E50"))
+                           style="color: #000000; background-color: #FFFFFF; border-color: #2C3E50")
+            )
             })}) 
-          
-          observeEvent(input$runbtn_chat, {
-            observeEvent(c(input$api_git, input$chatgpt, input$rename_1, input$rename_2), {
+            
+            observeEvent(input$runbtn_chat, {
               withProgress(message = 'Asking ChatGPT', value = 0, {
                 incProgress(0.5, message = "Asking Chat")
                 
-                chat_result <- chat_gpt_mediation(input$api_gpt, input$chatgpt, input$rename_1, input$rename_2)
+                chat_result <<- tryCatch(chat_gpt_mediation(input$api_gpt_dact, input$rename_taxon, input$rename_1, input$rename_2), 
+                                        error = function(e) {  
+                                          message("You should insert your private ChatGPT API key!")
+                                          showModal(modalDialog(div("You should insert your private ChatGPT API key!")))
+                                          return(NULL)})
+                
+                rename_taxon_dact <- input$rename_taxon 
+                rename_dact_1 <- input$rename_1 
+                rename_dact_2 <- input$rename_2 
                 
                 output$chat_vis <-renderUI({
-                tagList(box(title = NULL, width = "60%", p(paste0(paste("What is known about", input$chatgpt, "on", input$rename_1, "and", input$rename_2), "?"))),
-                        box(title = NULL, width = "60%",
-                            p(chat_result)))
-              })
+                  tagList(box(title = NULL, width = "60%", p(paste0(paste("What is known about", rename_taxon_dact, "on", rename_dact_1, "and", rename_dact_2), "?"))),
+                          box(title = NULL, width = "60%",
+                              p(chat_result)))
+                })
               }) 
             })
             
-          })}
+            
+            
+            # observeEvent(input$runbtn_chat, {
+            #   # shinyjs::disable("api_gpt_dat")
+            #   # shinyjs::disable("chatgpt")     
+            #   # shinyjs::disable("rename_1")
+            #   # shinyjs::disable("rename_2")
+            #   
+            #   observeEvent(c(input$api_gpt_dact, input$chatgpt, input$rename_1, input$rename_2), {
+            #     
+            #     withProgress(message = 'Asking ChatGPT', value = 0, {
+            #       incProgress(0.5, message = "Asking Chat")
+            #       
+            #       chat_result <- tryCatch(chat_gpt_mediation(input$api_gpt_dact, input$rename_taxon, input$rename_1, input$rename_2), 
+            #                               error = function(e) {  
+            #                                 message("You should insert your private ChatGPT API key!")
+            #                                 showModal(modalDialog(div("You should insert your private ChatGPT API key!")))
+            #                                 return(NULL)})
+            #       
+            #       output$chat_vis <-renderUI({
+            #         tagList(box(title = NULL, width = "60%", p(paste0(paste("What is known about", input$rename_taxon, "on", input$rename_1, "and", input$rename_2), "?"))),
+            #                 box(title = NULL, width = "60%",
+            #                     p(chat_result)))
+            #       })
+            #     }) 
+            #   })
+            #   # 
+            #   # shinyjs::enable("api_gpt_dact")
+            #   # shinyjs::enable("chatgpt")
+            #   # shinyjs::enable("rename_1")
+            #   # shinyjs::enable("rename_2")
+            # })
+  
+
+          }
       }) 
     
-    
+    shinyjs::disable("runbtn_chat")
     shinyjs::enable("runbtn_taxa")
     shinyjs::enable("choose_taxa")
     shinyjs::enable("include_species_taxa")
@@ -4709,6 +4810,10 @@ server <- function(input, output, session) {
     shinyjs::enable("sim_taxa")
     shinyjs::enable("outcome_taxa")
     shinyjs::enable("treat_taxa")
+    # shinyjs::enable("api_gpt_dat")
+    # shinyjs::enable("rename_1")
+    # shinyjs::enable("rename_2")
+    # shinyjs::enable("chatgpt")  
     shinyjs::enable("covariates_taxa")
   }, ignoreNULL = TRUE, ignoreInit = TRUE)
 }
