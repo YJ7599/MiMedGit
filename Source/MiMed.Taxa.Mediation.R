@@ -535,6 +535,8 @@ mediation.taxon.total <- function(sam.dat, taxa,
                                 regression.method = "logistic", 
                                 method = "bootstrap", boot.method.po, n.sim = 1000, inc){
    
+  print(covariates)
+  
   outcome.type <<- binary_cont(sam.dat[,outcome])
   treat.type <<- binary_cont(sam.dat[,exposure])
   
@@ -4274,4 +4276,3 @@ tax.trans.na <- function(otu.tab, tax.tab, rare.otu.tab, rare.tax.tab, sub.com =
                 clr = tax.clr.out, arcsin = tax.arc.sin.out))
   }
 }
-
