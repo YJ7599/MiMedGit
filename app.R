@@ -218,7 +218,6 @@ ui <- dashboardPage(
   
   
   dashboardBody(
-    customTheme,
     tags$head(tags$style(HTML(".content { padding-top: 2px;}"))),
     
     tags$head(tags$style(HTML('.progress-bar {background-color: #2C3E50;}'))),
