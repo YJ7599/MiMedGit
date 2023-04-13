@@ -3629,7 +3629,7 @@ server <- function(input, output, session) {
                 rename_dact_2_ove <- input$rename_2_ove
                 
                 output$chat_vis_overall <- renderUI({
-                  tagList(box(title = NULL, width = "60%", p(paste0(paste("What is known about", rename_taxon_ove, "on", rename_dact_1_ove, "and", rename_dact_2_ove, "?")))),
+                  tagList(box(title = NULL, width = "60%", strong(paste0(paste("What is known about", rename_taxon_ove, "on", rename_dact_1_ove, "and", rename_dact_2_ove, "?")))),
                           box(title = NULL, width = "60%",
                               p(chat_result_ove)))
                 })
@@ -4018,7 +4018,7 @@ server <- function(input, output, session) {
               rename_dact_2_acme <- input$rename_2_acme
               
               output$chat_vis_acme <-renderUI({
-                tagList(box(title = NULL, width = "60%", p(paste0(paste("What is known about", rename_taxon_acme, "on", rename_dact_1_acme, "and", rename_dact_2_acme, "?")))),
+                tagList(box(title = NULL, width = "60%", strong(paste0(paste("What is known about", rename_taxon_acme, "on", rename_dact_1_acme, "and", rename_dact_2_acme, "?")))),
                         box(title = NULL, width = "60%",
                             p(chat_result_acme)))
               })
@@ -4387,7 +4387,8 @@ server <- function(input, output, session) {
               rename_sobel_2 <- input$rename_2_sobel
               
               output$chat_vis_sobel <- renderUI({
-                tagList(box(title = NULL, width = "60%", p(paste0(paste("What is known about", rename_taxon_sobel, "on", rename_sobel_1, "and", rename_sobel_2), "?"))),
+                tagList(box(title = NULL, width = "60%", strong(paste0(paste("What is known about", rename_taxon_sobel, "on", rename_sobel_1, "and", rename_sobel_2), "?"))),
+                        p(" ", style = "margin-bottom: -15px;"),
                         box(title = NULL, width = "60%",
                             p(chat_result_sobel)))
               })
@@ -4757,7 +4758,8 @@ server <- function(input, output, session) {
                 rename_dact_2 <- input$rename_2 
                 
                 output$chat_vis <-renderUI({
-                  tagList(box(title = NULL, width = "60%", p(paste0(paste("What is known about", rename_taxon_dact, "on", rename_dact_1, "and", rename_dact_2), "?"))),
+                  tagList(box(title = NULL, width = "60%", strong(paste0(paste("What is known about", rename_taxon_dact, "on", rename_dact_1, "and", rename_dact_2), "?"))),
+                          p(" ", style = "margin-bottom: -15px;"),
                           box(title = NULL, width = "60%",
                               p(chat_result)))
                 })
@@ -4784,7 +4786,7 @@ server <- function(input, output, session) {
             #                                 return(NULL)})
             #       
             #       output$chat_vis <-renderUI({
-            #         tagList(box(title = NULL, width = "60%", p(paste0(paste("What is known about", input$rename_taxon, "on", input$rename_1, "and", input$rename_2), "?"))),
+            #         tagList(box(title = NULL, width = "60%", strong(paste0(paste("What is known about", input$rename_taxon, "on", input$rename_1, "and", input$rename_2), "?"))),
             #                 box(title = NULL, width = "60%",
             #                     p(chat_result)))
             #       })
