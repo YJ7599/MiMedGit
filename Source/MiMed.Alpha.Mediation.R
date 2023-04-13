@@ -696,8 +696,6 @@ Forestplot_Sobel = function(regression.result, sobel.result, is.tree) {
                col = fpColors(box=rgb(1,0,0,0.5), line="black", summary="red3"),
                boxsize = 0.15,
                alpha = 0.75,
-               colgap = unit(0.7, "cm"),
-               graphwidth = unit(12, "cm"),
                shapes_gp = styles)
 }
 
@@ -985,8 +983,6 @@ Forestplot_DACT = function(regression.result, DACT.result, is.tree) {
                col = fpColors(box=rgb(1,0,0), line="black"),
                boxsize = 0.15,
                alpha = 0.75,
-               colgap = unit(0.7, "cm"),
-               graphwidth = unit(12, "cm"),
                shapes_gp = styles)
   
 }
