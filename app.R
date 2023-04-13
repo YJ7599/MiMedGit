@@ -2667,7 +2667,7 @@ server <- function(input, output, session) {
             fluidRow(style = "position:relative",
                      tabBox(width = 12, title = strong("Forest Plot", style = "color:black"),
                             tabPanel("Divide-Aggregate Composite-Null Test", align = "center",
-                                     plotOutput("DACT_forestplot", height = 600, width = 750))))
+                                     plotOutput("DACT_forestplot", height = 500, width = 700))))
           })
           
           output$DACT_forestplot <- renderPlot({
