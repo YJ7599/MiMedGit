@@ -3603,7 +3603,7 @@ server <- function(input, output, session) {
               
               output$other_opt_chat_overall_2 <- renderUI({tagList(
                 textInput("rename_taxon_ove", "Rename the taxon", value = input$chatgpt_ove, width = '55%'),
-                p("You can rename the taxon name.", style = "font-size:10pt"),
+                p("You can rename it using a human language, for instance, deleting possible codes, special symbols or numbers (e.g., from ‘Erysipelotrichaceae_[G-1]‘ to ‘Erysipelotrichaceae‘)", style = "font-size:10pt"),
                 textInput("rename_1_ove", label = paste0("Rename the treatment variable"), value = exposure, width = "55%"),
                 p("You can rename the treatment variable using a human language (e.g., from ‘ecig_status’ to ‘e-cigarrette’).", style = "font-size:10pt"),
                 textInput("rename_2_ove", label = paste0("Rename the outcome variable"), value = outcome, width = "55%"),
@@ -3993,7 +3993,7 @@ server <- function(input, output, session) {
             
             output$other_opt_chat_acme_2 <- renderUI({tagList(
               textInput("rename_taxon_acme", "Rename the taxon", value = input$chatgpt_acme, width = '55%'),
-              p("You can rename the taxon name.", style = "font-size:10pt"),
+              p("You can rename it using a human language, for instance, deleting possible codes, special symbols or numbers (e.g., from ‘Erysipelotrichaceae_[G-1]‘ to ‘Erysipelotrichaceae‘)", style = "font-size:10pt"),
               textInput("rename_1_acme", label = paste0("Rename the treatment variable"), value = exposure, width = "55%"),
               p("You can rename the treatment variable using a human language (e.g., from ‘ecig_status’ to ‘e-cigarrette’).", style = "font-size:10pt"),
               textInput("rename_2_acme", label = paste0("Rename the outcome variable"), value = outcome, width = "55%"),
@@ -4361,7 +4361,7 @@ server <- function(input, output, session) {
             })
             output$other_opt_chat_sobel_2 <- renderUI({tagList(
               textInput("rename_taxon_sobel", "Rename the taxon", value = input$chatgpt_sobel, width = '55%'),
-              p("You can rename the taxon name.", style = "font-size:10pt"),
+              p("You can rename it using a human language, for instance, deleting possible codes, special symbols or numbers (e.g., from ‘Erysipelotrichaceae_[G-1]‘ to ‘Erysipelotrichaceae‘)", style = "font-size:10pt"),
               textInput("rename_1_sobel", label = paste0("Rename the treatment variable"), value = exposure, width = "55%"),
               p("You can rename the treatment variable using a human language (e.g., from ‘ecig_status’ to ‘e-cigarrette’).", style = "font-size:10pt"),
               textInput("rename_2_sobel", label = paste0("Rename the outcome variable"), value = outcome, width = "55%"),
@@ -4732,7 +4732,7 @@ server <- function(input, output, session) {
             
             output$other_opt_chat_2 <- renderUI({tagList(
               textInput("rename_taxon", "Rename the taxon", value = input$chatgpt_sobel, width = '55%'),
-              p("You can rename the taxon name.", style = "font-size:10pt"),
+              p("You can rename it using a human language, for instance, deleting possible codes, special symbols or numbers (e.g., from ‘Erysipelotrichaceae_[G-1]‘ to ‘Erysipelotrichaceae‘)", style = "font-size:10pt"),
               textInput("rename_1", label = paste0("Rename the treatment variable"), value = exposure, width = "55%"),
               p("You can rename the treatment variable using a human language (e.g., from ‘ecig_status’ to ‘e-cigarrette’).", style = "font-size:10pt"),
               textInput("rename_2", label = paste0("Rename the outcome variable"), value = outcome, width = "55%"),
