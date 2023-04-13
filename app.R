@@ -2583,7 +2583,7 @@ server <- function(input, output, session) {
             fluidRow(style = "position:relative",
                      tabBox(width = 12, title = strong("Forest Plot", style = "color:black"),
                             tabPanel("Sobel Test", align = "center",
-                                     plotOutput("Sobel_forestplot", height = 600, width = 1400))))
+                                     plotOutput("Sobel_forestplot", height = 500, width = 800))))
           })
           
           output$Sobel_forestplot <- renderPlot({
@@ -2667,7 +2667,7 @@ server <- function(input, output, session) {
             fluidRow(style = "position:relative",
                      tabBox(width = 12, title = strong("Forest Plot", style = "color:black"),
                             tabPanel("Divide-Aggregate Composite-Null Test", align = "center",
-                                     plotOutput("DACT_forestplot", height = 500, width = 700))))
+                                     plotOutput("DACT_forestplot", height = 500, width = 800))))
           })
           
           output$DACT_forestplot <- renderPlot({
