@@ -3630,6 +3630,7 @@ server <- function(input, output, session) {
                 
                 output$chat_vis_overall <- renderUI({
                   tagList(box(title = NULL, width = "60%", strong(paste0(paste("What is known about", rename_taxon_ove, "on", rename_dact_1_ove, "and", rename_dact_2_ove, "?")))),
+                          p(" ", style = "margin-bottom: -15px;"),
                           box(title = NULL, width = "60%",
                               p(chat_result_ove)))
                 })
@@ -4019,6 +4020,7 @@ server <- function(input, output, session) {
               
               output$chat_vis_acme <-renderUI({
                 tagList(box(title = NULL, width = "60%", strong(paste0(paste("What is known about", rename_taxon_acme, "on", rename_dact_1_acme, "and", rename_dact_2_acme, "?")))),
+                        p(" ", style = "margin-bottom: -15px;"),
                         box(title = NULL, width = "60%",
                             p(chat_result_acme)))
               })
