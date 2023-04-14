@@ -568,35 +568,17 @@ mediation.taxon.total <- function(sam.dat, taxa,
 ######################
 # P-value Adjustment #
 ######################
-
-q_convert_tax_med <- function(med_result){
-              new_list <- list() 
-              
-              for (i in 1:length(med_result)){
-                new_list[[i]] <- list() 
-                 for (k in 1:length(med_result[[i]])){
-                  
-                  Q.value <- p.adjust(unlist(med_result[[i]][[k]][[4]]), method = "BH")
-                  
-                  new_list[[i]][[k]] <- data.frame(matrix(c(as.numeric(unlist(med_result[[i]][[k]][,1])), as.numeric(unlist(med_result[[i]][[k]][,2])), as.numeric(unlist(med_result[[i]][[k]][,3])), as.numeric(unlist(med_result[[i]][[k]][,4])), as.numeric(unlist(Q.value))), nrow=length(unlist(med_result[[i]][[k]][,2]))))
-                  
-                  rownames(new_list[[i]][[k]]) <- rownames(med_result[[i]][[k]])
-                  colnames(new_list[[i]][[k]]) <- c("Est", "Lower", "Upper", "P.val", "Q.val")
-                  
-                }
-              }
-              return(new_list)
-            }                    
+                   
                     
-#q_convert_tax_med <- function(med_result){
-#  for (i in 1:length(med_result)){
-#    for (k in 1:length(med_result[[i]])){
-#      med_result[[i]][[k]] <- cbind(med_result[[i]][[k]], p.adjust(med_result[[i]][[k]][,"P.value"], "BH"))
-#      colnames(med_result[[i]][[k]]) <- c("Est", "Lower", "Upper", "P.val", "Q.val")
-#    }
-#  }
-#  return(med_result)
-#}
+q_convert_tax_med <- function(med_result){
+  for (i in 1:length(med_result)){
+    for (k in 1:length(med_result[[i]])){
+      med_result[[i]][[k]] <- cbind(med_result[[i]][[k]], p.adjust(med_result[[i]][[k]][,"P.value"], "BH"))
+      colnames(med_result[[i]][[k]]) <- c("Est", "Lower", "Upper", "P.val", "Q.val")
+    }
+  }
+  return(med_result)
+}
 
 # result <- q_convert_tax_med(result)
 
