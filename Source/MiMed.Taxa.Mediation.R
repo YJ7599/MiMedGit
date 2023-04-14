@@ -243,7 +243,6 @@ binary_cont <- function(vec){
   return(type)
 }
 
-
 mediation.taxon.ind <- function(sam.dat, taxon_med, 
                                 exposure, covariates, 
                                 outcome, interaction = TRUE, 
@@ -337,11 +336,11 @@ mediation.taxon.ind <- function(sam.dat, taxon_med,
     }
     
     if (method == "quasi-Bayesian") {
-      set.seed(0705)
+      set.seed(0705) 
       med.result <- summary(mediate(med.fit, out.fit, treat = exposure, mediator = med,
                                     robustSE = TRUE, sims = n.sim))
     }else if (method == "bootstrap") {
-      set.seed(0705)
+      set.seed(0705) 
       med.result <- summary(mediate(med.fit, out.fit, treat = exposure, mediator = med,
                                     boot = TRUE, boot.ci.type = boot.method, sims = n.sim))
     }
