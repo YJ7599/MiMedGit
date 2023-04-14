@@ -3054,7 +3054,7 @@ server <- function(input, output, session) {
           if (binary_cont(chooseData$sam.dat[,input$treat_taxa]) == "binary"){
           
             
-            med_result <<- tryCatch(mediation.taxon.total(chooseData$sam.dat, taxa, input$treat_taxa, covariate_taxa, input$outcome_taxa, interaction_taxa, taxa_reg_type, taxa_sim_type, boot.method.po = boot.iterations, n.sim = 10, inc = include),  #need to be adjusted (n.sim)  #here need change 
+            med_result <<- tryCatch(mediation.taxon.total(chooseData$sam.dat, taxa, input$treat_taxa, covariate_taxa, input$outcome_taxa, interaction_taxa, taxa_reg_type, taxa_sim_type, boot.method.po = boot.iterations, n.sim = 1000, inc = include),  #need to be adjusted (n.sim)  #here need change 
                                     error = function(e) {
                                       message("No outcome is available!")
                                       showModal(modalDialog(div("No outcome is available!")))
@@ -3641,7 +3641,7 @@ server <- function(input, output, session) {
             
             chooseData$sam.dat[[input$outcome_taxa]] <- as.numeric(chooseData$sam.dat[[input$outcome_taxa]])
             
-            med_result <<- tryCatch(mediation.taxon.total(chooseData$sam.dat, taxa, input$treat_taxa, covariate_taxa, input$outcome_taxa, interaction_taxa, taxa_reg_type, taxa_sim_type, boot.method.po = boot.iterations, n.sim = 10, inc = include), 
+            med_result <<- tryCatch(mediation.taxon.total(chooseData$sam.dat, taxa, input$treat_taxa, covariate_taxa, input$outcome_taxa, interaction_taxa, taxa_reg_type, taxa_sim_type, boot.method.po = boot.iterations, n.sim = 1000, inc = include), 
                                    error = function(e) {  
                                      message("No outcome is available!")
                                      showModal(modalDialog(div("No outcome is available!")))
