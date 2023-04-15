@@ -2491,7 +2491,7 @@ server <- function(input, output, session) {
               fluidRow(style = "position:relative",
                        tabBox(width = 12, title = strong("Forest Plot", style = "color:black"),
                               tabPanel("ACME (Mediation)", align = "center",
-                                       tabsetPanel(tabPanel(title = "ACME (Average)", align = "center",
+                                       tabsetPanel(tabPanel(title = "ACME (Overall)", align = "center",
                                                             plotOutput("forestplot_ACME1", height = 500, width = 800)),
                                                    tabPanel(title = "ACME (Control)", align = "center",
                                                             plotOutput("forestplot_ACME2", height = 500, width = 800)),
@@ -2518,7 +2518,7 @@ server <- function(input, output, session) {
           }
           
           output$forestplot_ACME1 <- renderPlot({
-            tryCatch(Forestplot(Med.out, Is.tree, Outcome.type, Treatment.type, Interaction, effect = "ACME (Average)"), 
+            tryCatch(Forestplot(Med.out, Is.tree, Outcome.type, Treatment.type, Interaction, effect = "ACME (Overall)"), 
                      error = function(e) {
                        message("No outcome is available!")
                        showModal(modalDialog(div("No outcome is available!")))
