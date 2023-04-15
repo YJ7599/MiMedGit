@@ -1096,12 +1096,12 @@ Forestplot = function(med.out, is.tree,
                       outcome.type = c("Binary", "Continuous"),
                       treatment.type =  c("Binary", "Continuous"),
                       interaction = c("TRUE", "FALSE"),
-                      effect = c("ACME (Average)", "ADE", "Total Effect",
+                      effect = c("ACME (Overall)", "ADE", "Total Effect",
                                  "ACME (Control)", "ACME (Treated)")) {
   
   Mean = c(); Lower = c(); Upper = c(); P_value = c()
   
-  if (effect == "ACME (Average)") {
+  if (effect == "ACME (Overall)") {
     for (i in 1:length(med.out)) {
       Mean[i] = summary(med.out[[i]])$d.avg
       Lower[i] = summary(med.out[[i]])$d.avg.ci[1]
@@ -1188,7 +1188,7 @@ Forestplot = function(med.out, is.tree,
                             else if (is.tree == "withoutTree") {list("2" = gpar(lty = 2), 
                                                                      "10" = gpar(lwd = 1, columns = 1:3, col = "#000044"))},
                title = effect,
-               col = fpColors(box = if (effect == "ACME (Average)") {"#D55E00"}
+               col = fpColors(box = if (effect == "ACME (Overall)") {"#D55E00"}
                               else if (effect == "ACME (Control)") {"#f0b135"}
                               else if (effect == "ACME (Treated)") {"orange2"}
                               else if (effect == "ADE") {"#084081"}
