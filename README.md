@@ -18,7 +18,7 @@ License: GPL 1, GPL 2
 
 ## URLs
 
-* Web application (online implementation): 
+* Web application (online implementation): http://mimed.micloud.kr
 * GitHub repository (local implementation): https://github.com/yj7599/MiMedGit
 
 ## References
@@ -47,4 +47,3 @@ runGitHub('MiMedGit', 'yj7599', ref = 'main')
 
 If you have any problems for using MiMed, please report in issues (https://github.com/YJ7599/MiMedGit/issues) or email Hyo Jung Jang (hyojung.jang@stonybrook.edu).
 
-* Tip 1. For the local implementation, to ensure no fail builds, you may need to remove all the pre-installed R packages on your computer or start it all over again after re-installing R and R Studio completely.
