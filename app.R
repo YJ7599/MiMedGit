@@ -2761,9 +2761,9 @@ server <- function(input, output, session) {
         
         if (length(ind.missing) == 0) {
           ind.missing = "NA"
-          Data.na = Data
+          Data.na <<-  Data
         } else {
-          Data.na = Data[-ind.missing, ]
+          Data.na <<- Data[-ind.missing, ]
         }
         
         print(ind.missing)
@@ -2777,7 +2777,7 @@ server <- function(input, output, session) {
           if ("NA" %in% ind.missing) {
             beta.Mediator.na = beta.Mediator
           } else {
-            beta.Mediator.na <- list(JAC = beta.Mediator[[1]][-ind.missing, -ind.missing],
+            beta.Mediator.na <<- list(JAC = beta.Mediator[[1]][-ind.missing, -ind.missing],
                                      BC = as.matrix(beta.Mediator[[2]])[-ind.missing, -ind.missing],
                                      UniFrac = beta.Mediator[[3]][-ind.missing, -ind.missing],
                                      GUniFrac = beta.Mediator[[4]][-ind.missing, -ind.missing],
@@ -2786,9 +2786,9 @@ server <- function(input, output, session) {
         } 
         else if (Is.tree == "withoutTree") {
           if ("NA" %in% ind.missing) {
-            beta.Mediator.na = beta.Mediator
+            beta.Mediator.na <<- beta.Mediator
           } else {
-            beta.Mediator.na <- list(JAC = beta.Mediator[[1]][-ind.missing, -ind.missing],
+            beta.Mediator.na <<- list(JAC = beta.Mediator[[1]][-ind.missing, -ind.missing],
                                      BC = as.matrix(beta.Mediator[[2]])[-ind.missing, -ind.missing])
           }
         }
@@ -2810,17 +2810,16 @@ server <- function(input, output, session) {
         
         if (Treatment.type == "Binary") {
           print("treat_binary")
-          beta.bin.ori.cat_treatvar <- beta.bin.cat.ori.func(Data.na, Treatment)
-          beta.Data_treat <- try(beta.bin.recode.func(Data.na, Treatment, beta.bin.ori.cat_treatvar,
+          beta.bin.ori.cat_treatvar <<- beta.bin.cat.ori.func(Data.na, Treatment)
+          beta.Data_treat <<- try(beta.bin.recode.func(Data.na, Treatment, beta.bin.ori.cat_treatvar,
                                                       rename.catsbin_ref1, rename.catsbin_com1), silent = TRUE) 
           print(rename.catsbin_ref1); print(rename.catsbin_com1)
           
           if (Outcome.type == "Binary") {
-            beta.bin.ori.cat_outvar <- beta.bin.cat.ori.func(Data.na, Outcome)
-            beta.Data <- try(beta.bin.recode.func(beta.Data_treat, Outcome,
+            beta.bin.ori.cat_outvar <<- beta.bin.cat.ori.func(Data.na, Outcome)
+            beta.Data <<- try(beta.bin.recode.func(beta.Data_treat, Outcome,
                                                   beta.bin.ori.cat_outvar,
                                                   rename.catsbin_ref2, rename.catsbin_com2), silent = TRUE) 
-            
             
             print(rename.catsbin_ref2); print(rename.catsbin_com2)
             dat1 <<- beta.Data
@@ -2858,7 +2857,7 @@ server <- function(input, output, session) {
         ## Calculating MedTest
         incProgress(1/10, message = "Calculating MedTest")
         
-        Med.test.out <- try(MedTest(Data.na, beta.Mediator.na, MedTest.covariates, Treatment, Outcome, n.perm=1000), silent = TRUE) 
+        Med.test.out <<- try(MedTest(Data.na, beta.Mediator.na, c("age", "sex"), "ecig_status", "gingival_inflammation", n.perm=1000), silent = TRUE) 
         
         if (Treatment.type == "Binary") {
           beta.Treatvar.out <- try(beta.bin.out.func(beta.Data, Ds.Ks, Treatment,
@@ -2880,7 +2879,6 @@ server <- function(input, output, session) {
           Outvar.out2 <<- beta.Outvar.out
         }
         
-        
         ## Visualization
         incProgress(3/10, message = "Displaying Results")
         
@@ -2895,6 +2893,10 @@ server <- function(input, output, session) {
                                      column(width = 5,
                                             plotOutput("beta_graph_plot2", height = 800)))))
           })
+          
+          dat_1 <<- Med.test.out 
+          dat_2 <<- beta.treatvar.out
+          dat_3 <<- beta.Outvar.out
           
           output$beta_graph_plot1 <- renderPlot({
             
@@ -2914,6 +2916,11 @@ server <- function(input, output, session) {
           })
           
           output$beta_graph_plot2 <- renderPlot({
+            
+            
+            result_1 <<- Med.test.out 
+            result_2 <<- beta.Treatvar.out 
+            result_3 <<- beta.Outvar.out
             
             if (Treatment.type == "Binary" & Outcome.type == "Binary") {
               try(MedTest.bin.bin.plot2(Med.test.out, beta.Treatvar.out, beta.Outvar.out), silent = TRUE) 
@@ -2941,7 +2948,6 @@ server <- function(input, output, session) {
                             tabPanel("MedTest", align = "center",
                                      plotOutput("beta_graph_plot", height = 800, width = 600))))
           })
-          
           
           output$beta_graph_plot <- renderPlot({
             
