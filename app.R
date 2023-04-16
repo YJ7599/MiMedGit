@@ -2894,9 +2894,6 @@ server <- function(input, output, session) {
                                             plotOutput("beta_graph_plot2", height = 800)))))
           })
           
-          dat_1 <<- Med.test.out 
-          dat_2 <<- beta.treatvar.out
-          dat_3 <<- beta.Outvar.out
           
           output$beta_graph_plot1 <- renderPlot({
             
@@ -2918,9 +2915,6 @@ server <- function(input, output, session) {
           output$beta_graph_plot2 <- renderPlot({
             
             
-            result_1 <<- Med.test.out 
-            result_2 <<- beta.Treatvar.out 
-            result_3 <<- beta.Outvar.out
             
             if (Treatment.type == "Binary" & Outcome.type == "Binary") {
               try(MedTest.bin.bin.plot2(Med.test.out, beta.Treatvar.out, beta.Outvar.out), silent = TRUE) 
