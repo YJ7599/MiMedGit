@@ -285,7 +285,7 @@ MedTest.bin.bin.plot = function(med.test.out, beta.treatvar.out, beta.outvar.out
   legend("right", title = "Outcome", legend = levels(beta.outvar.out$bin.var),
          fil = c("orangered3", "royalblue4", cex=2.0, box.lty=0), bty = "n", cex=1.4)
 
-  legend("bottom right", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex = 1.4)
+  legend("bottom right", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex = 1.3)
   
 }
 
@@ -339,7 +339,7 @@ MedTest.con.bin.plot = function(med.test.out, beta.treatvar.out, beta.outvar.out
   
   legend("right", legend = levels(beta.outvar.out$bin.var), title = "Outcome",
          fil = c("orangered3", "royalblue4", cex=2.5, box.lty=0), bty = "n", cex=1.4)
-  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.4)
+  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.3)
   
 }
 
@@ -393,7 +393,7 @@ MedTest.bin.con.plot = function(med.test.out, beta.treatvar.out, beta.outvar.out
   
   legend("left", legend = levels(beta.treatvar.out$bin.var), title = "Treatment",
          fil = c("golden rod", "darkgreen", cex=2.5, box.lty=0), bty = "n", cex=1.4)
-  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.4)
+  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.3)
   
 }
 
@@ -452,7 +452,7 @@ MedTest.con.con.plot = function(med.test.out, beta.treatvar.out, beta.outvar.out
   rasterImage(legend_image2, 2.65, 0.34, 2.95, 0.55)
   text(x=3.4, y=0.66, labels = "Outcome", cex=1.4)
   
-  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.4)
+  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.3)
   
 }
 
@@ -553,7 +553,7 @@ MedTest.bin.bin.plot2 = function(med.test.out, beta.treatvar.out, beta.outvar.ou
          fil = c("golden rod", "darkgreen", cex=2.5, box.lty=0), bty = "n", cex=1.4)
   legend("right", title = "Outcome", legend = levels(beta.outvar.out$bin.var),
          fil = c("orangered3", "royalblue4", cex=2.5, box.lty=0), bty = "n", cex=1.4)
-  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.4)
+  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.3)
   
 }
 
@@ -658,7 +658,7 @@ MedTest.con.bin.plot2 = function(med.test.out, beta.treatvar.out, beta.outvar.ou
 
   legend("right", legend = levels(beta.outvar.out$bin.var), title = "Outcome",
          fil = c("orangered3", "royalblue4", cex=2.5, box.lty=0), bty = "n", cex=1.4)
-  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.4)
+  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.3)
 
 }
 
@@ -766,7 +766,7 @@ MedTest.bin.con.plot2 = function(med.test.out, beta.treatvar.out, beta.outvar.ou
   
   legend("left", legend = levels(beta.treatvar.out$bin.var), title = "Treatment",
          fil = c("golden rod", "darkgreen", cex=2.5, box.lty=0), bty = "n", cex=1.4)
-  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.4)
+  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.3)
 
 }
 
@@ -879,7 +879,7 @@ MedTest.con.con.plot2 = function(med.test.out, beta.treatvar.out, beta.outvar.ou
   rasterImage(legend_image2, 2.65, 0.34, 2.95, 0.55)
   text(x=3.4, y=0.66, labels = "Outcome", cex=1.4)
   
-  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.4)
+  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.3)
   
 }
 
