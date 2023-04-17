@@ -281,10 +281,10 @@ MedTest.bin.bin.plot = function(med.test.out, beta.treatvar.out, beta.outvar.out
   
   plot(0, xaxt = 'n', yaxt = 'n', bty = 'n', pch = '', ylab = '', xlab = '')
   legend("left", title = "Treatment", legend = levels(beta.treatvar.out$bin.var),
-         fil = c("golden rod", "darkgreen", cex=2.5, box.lty=0), bty = "n", cex=1.6)
+         fil = c("golden rod", "darkgreen", cex=2.0, box.lty=0), bty = "n", cex=1.2)
   legend("right", title = "Outcome", legend = levels(beta.outvar.out$bin.var),
-         fil = c("orangered3", "royalblue4", cex=2.5, box.lty=0), bty = "n", cex=1.6)
-  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.8)
+         fil = c("orangered3", "royalblue4", cex=2.0, box.lty=0), bty = "n", cex=1.2)
+  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.3)
   
 }
 
