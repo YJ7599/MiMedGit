@@ -2769,13 +2769,13 @@ server <- function(input, output, session) {
         print(ind.missing)
         
         ## Mediator data
-        beta.Mediator <- Ds.Ks$Ds
-        beta.Mediator.list <- names(beta.Mediator)
+        beta.Mediator <<- Ds.Ks$Ds
+        beta.Mediator.list <<- names(beta.Mediator)
         print(beta.Mediator.list)
         
         if (Is.tree == "withTree") {
           if ("NA" %in% ind.missing) {
-            beta.Mediator.na = beta.Mediator
+            beta.Mediator.na <<- beta.Mediator
           } else {
             beta.Mediator.na <<- list(JAC = beta.Mediator[[1]][-ind.missing, -ind.missing],
                                      BC = as.matrix(beta.Mediator[[2]])[-ind.missing, -ind.missing],
@@ -2826,20 +2826,20 @@ server <- function(input, output, session) {
             
           } else if (Outcome.type == "Continuous") {
             print("out_continuous")
-            beta.Data <- try(beta.con.recode.func(beta.Data_treat, Outcome, input$beta.rename_con_var2), silent = TRUE) 
+            beta.Data <<- try(beta.con.recode.func(beta.Data_treat, Outcome, input$beta.rename_con_var2), silent = TRUE) 
             
             dat3 <<- beta.Data
           }
         } 
         else if (Treatment.type == "Continuous") {
           print("treat_continuous")
-          beta.Data_treat <- try(beta.con.recode.func(Data.na, Treatment, input$beta.rename_con_var1), silent = TRUE) 
+          beta.Data_treat <<- try(beta.con.recode.func(Data.na, Treatment, input$beta.rename_con_var1), silent = TRUE) 
           print(input$beta.rename_con_var1)
           
           if (Outcome.type == "Binary") {
             print("out_binary_2")
-            beta.bin.ori.cat_outvar <- beta.bin.cat.ori.func(Data.na, Outcome)
-            beta.Data <- try(beta.bin.recode.func(beta.Data_treat, Outcome, 
+            beta.bin.ori.cat_outvar <<- beta.bin.cat.ori.func(Data.na, Outcome)
+            beta.Data <<- try(beta.bin.recode.func(beta.Data_treat, Outcome, 
                                                   beta.bin.ori.cat_outvar,
                                                   rename.catsbin_ref2, rename.catsbin_com2), silent = TRUE) 
             
@@ -2847,7 +2847,7 @@ server <- function(input, output, session) {
             dat2 <<- beta.Data
           } else if (Outcome.type == "Continuous") {
             print("out_continuous_2")
-            beta.Data <- try(beta.con.recode.func(beta.Data_treat, Outcome, input$beta.rename_con_var2), silent = TRUE) 
+            beta.Data <<- try(beta.con.recode.func(beta.Data_treat, Outcome, input$beta.rename_con_var2), silent = TRUE) 
             print(input$beta.rename_con_var2)
             dat4 <<- beta.Data
           }
@@ -2860,21 +2860,21 @@ server <- function(input, output, session) {
         Med.test.out <<- try(MedTest(Data.na, beta.Mediator.na, c("age", "sex"), "ecig_status", "gingival_inflammation", n.perm=1000), silent = TRUE) 
         
         if (Treatment.type == "Binary") {
-          beta.Treatvar.out <- try(beta.bin.out.func(beta.Data, Ds.Ks, Treatment,
+          beta.Treatvar.out <<- try(beta.bin.out.func(beta.Data, Ds.Ks, Treatment,
                                                      rename.catsbin_ref1, rename.catsbin_com1), silent = TRUE) 
           Treatvar.out1 <<- beta.Treatvar.out
         } else {
-          beta.Treatvar.out <- try(beta.con.out.func(beta.Data, Ds.Ks, Treatment,
+          beta.Treatvar.out <<- try(beta.con.out.func(beta.Data, Ds.Ks, Treatment,
                                                      input$beta.rename_con_var1, ind.missing), silent = TRUE) 
           Treatvar.out2 <<- beta.Treatvar.out
         }
         
         if (Outcome.type == "Binary") {
-          beta.Outvar.out <- try(beta.bin.out.func(beta.Data, Ds.Ks, Outcome,
+          beta.Outvar.out <<- try(beta.bin.out.func(beta.Data, Ds.Ks, Outcome,
                                                    rename.catsbin_ref2, rename.catsbin_com2), silent = TRUE) 
           Outvar.out1 <<- beta.Outvar.out
         } else {
-          beta.Outvar.out <- try(beta.con.out.func(beta.Data, Ds.Ks, Outcome,
+          beta.Outvar.out <<- try(beta.con.out.func(beta.Data, Ds.Ks, Outcome,
                                                    input$beta.rename_con_var2, ind.missing), silent = TRUE) 
           Outvar.out2 <<- beta.Outvar.out
         }
