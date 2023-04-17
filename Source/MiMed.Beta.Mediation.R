@@ -208,12 +208,12 @@ MedTest = function(data.na, beta.mediator.na, medtest.covariates, treatment, out
   
   if (length(medtest.covariates) == 0) {
     
-    out <- MedOmniTest(x=as.numeric(data.na[[treatment]]), y=as.numeric(data.na[[outcome]]), m.list=beta.mediator.na, 
+    out <<- MedOmniTest(x=as.numeric(data.na[[treatment]]), y=as.numeric(data.na[[outcome]]), m.list=beta.mediator.na, 
                        z=NULL, nperm = n.perm)
     
   } else if (length(medtest.covariates) == 1) {
     
-    out <- MedOmniTest(x=as.numeric(data.na[[treatment]]), y=as.numeric(data.na[[outcome]]), m.list=beta.mediator.na, 
+    out <<- MedOmniTest(x=as.numeric(data.na[[treatment]]), y=as.numeric(data.na[[outcome]]), m.list=beta.mediator.na, 
                        z=as.numeric(data.na[[medtest.covariates]]), nperm = n.perm)
     print(out)
     
@@ -226,7 +226,7 @@ MedTest = function(data.na, beta.mediator.na, medtest.covariates, treatment, out
     print(ncol(cov))
     print(class(cov))
     
-    out <- MedOmniTest(x=as.numeric(data.na[[treatment]]), y=as.numeric(data.na[[outcome]]), m.list=beta.mediator.na, 
+    out <<- MedOmniTest(x=as.numeric(data.na[[treatment]]), y=as.numeric(data.na[[outcome]]), m.list=beta.mediator.na, 
                        z=cov, nperm = n.perm)
   }
   
