@@ -281,12 +281,11 @@ MedTest.bin.bin.plot = function(med.test.out, beta.treatvar.out, beta.outvar.out
   
   plot(0, xaxt = 'n', yaxt = 'n', bty = 'n', pch = '', ylab = '', xlab = '')
   legend("left", title = "Treatment", legend = levels(beta.treatvar.out$bin.var),
-         fil = c("golden rod", "darkgreen", cex=2.0, box.lty=0), bty = "n", cex=1.2)
+         fil = c("golden rod", "darkgreen", cex=2.0, box.lty=0), bty = "n", cex=1.4)
   legend("right", title = "Outcome", legend = levels(beta.outvar.out$bin.var),
-         fil = c("orangered3", "royalblue4", cex=2.0, box.lty=0), bty = "n", cex=1.2)
-   op <- par(cex = 1.0)
-  
-  legend("bottom right", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n")
+         fil = c("orangered3", "royalblue4", cex=2.0, box.lty=0), bty = "n", cex=1.4)
+
+  legend("bottom right", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex = 1.4)
   
 }
 
@@ -336,11 +335,11 @@ MedTest.con.bin.plot = function(med.test.out, beta.treatvar.out, beta.outvar.out
   plot(c(0,2),c(0,1),type = 'n', axes = F, xlab = '', ylab = '', main = '')
   text(x=0.45, y = seq(0.37,0.52,l=2), labels = seq(min(beta.treatvar.out$con.var), max(beta.treatvar.out$con.var), length.out=2), cex=1.6)
   rasterImage(legend_image, 0.1, 0.34, 0.25, 0.55)
-  text(x=0.3, y=0.66, labels = "Treatment", cex=1.6)
+  text(x=0.3, y=0.66, labels = "Treatment", cex=1.4)
   
   legend("right", legend = levels(beta.outvar.out$bin.var), title = "Outcome",
-         fil = c("orangered3", "royalblue4", cex=2.5, box.lty=0), bty = "n", cex=1.2)
-  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.2)
+         fil = c("orangered3", "royalblue4", cex=2.5, box.lty=0), bty = "n", cex=1.4)
+  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.4)
   
 }
 
@@ -388,13 +387,13 @@ MedTest.bin.con.plot = function(med.test.out, beta.treatvar.out, beta.outvar.out
   
   legend_image <- as.raster(matrix(color.palette, ncol=1))
   plot(c(0,4),c(0,1),type = 'n', axes = F, xlab = '', ylab = '', main = '')
-  text(x=3.65, y = seq(0.37,0.52,l=2), labels = seq(min(beta.outvar.out$con.var), max(beta.outvar.out$con.var), length.out=2), cex=1.6)
+  text(x=3.65, y = seq(0.37,0.52,l=2), labels = seq(min(beta.outvar.out$con.var), max(beta.outvar.out$con.var), length.out=2), cex=1.4)
   rasterImage(legend_image, 2.65, 0.34, 2.95, 0.55)
-  text(x=3.4, y=0.66, labels = "Outcome", cex=1.6)
+  text(x=3.4, y=0.66, labels = "Outcome", cex=1.4)
   
   legend("left", legend = levels(beta.treatvar.out$bin.var), title = "Treatment",
-         fil = c("golden rod", "darkgreen", cex=2.5, box.lty=0), bty = "n", cex=1.2)
-  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.2)
+         fil = c("golden rod", "darkgreen", cex=2.5, box.lty=0), bty = "n", cex=1.4)
+  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.4)
   
 }
 
@@ -446,14 +445,14 @@ MedTest.con.con.plot = function(med.test.out, beta.treatvar.out, beta.outvar.out
   plot(c(0,4),c(0,1),type = 'n', axes = F, xlab = '', ylab = '', main = '')
   text(x=0.8, y = seq(0.37,0.52,l=2), labels = seq(min(beta.treatvar.out$con.var), max(beta.treatvar.out$con.var), length.out=2), cex=1.6)
   rasterImage(legend_image1, 0.1, 0.34, 0.4, 0.55)
-  text(x=0.6, y=0.66, labels = "Treatment", cex=1.6)
+  text(x=0.6, y=0.66, labels = "Treatment", cex=1.4)
   
   legend_image2 <- as.raster(matrix(color.palette2, ncol=1))
-  text(x=3.65, y = seq(0.37,0.52,l=2), labels = seq(min(beta.outvar.out$con.var), max(beta.outvar.out$con.var), length.out=2), cex=1.2)
+  text(x=3.65, y = seq(0.37,0.52,l=2), labels = seq(min(beta.outvar.out$con.var), max(beta.outvar.out$con.var), length.out=2), cex=1.4)
   rasterImage(legend_image2, 2.65, 0.34, 2.95, 0.55)
-  text(x=3.4, y=0.66, labels = "Outcome", cex=1.2)
+  text(x=3.4, y=0.66, labels = "Outcome", cex=1.4)
   
-  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.2)
+  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.4)
   
 }
 
@@ -551,10 +550,10 @@ MedTest.bin.bin.plot2 = function(med.test.out, beta.treatvar.out, beta.outvar.ou
   
   plot(0, xaxt = 'n', yaxt = 'n', bty = 'n', pch = '', ylab = '', xlab = '')
   legend("left", title = "Treatment", legend = levels(beta.treatvar.out$bin.var),
-         fil = c("golden rod", "darkgreen", cex=2.5, box.lty=0), bty = "n", cex=1.2)
+         fil = c("golden rod", "darkgreen", cex=2.5, box.lty=0), bty = "n", cex=1.4)
   legend("right", title = "Outcome", legend = levels(beta.outvar.out$bin.var),
-         fil = c("orangered3", "royalblue4", cex=2.5, box.lty=0), bty = "n", cex=1.2)
-  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.2)
+         fil = c("orangered3", "royalblue4", cex=2.5, box.lty=0), bty = "n", cex=1.4)
+  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.4)
   
 }
 
@@ -655,11 +654,11 @@ MedTest.con.bin.plot2 = function(med.test.out, beta.treatvar.out, beta.outvar.ou
   plot(c(0,2),c(0,1),type = 'n', axes = F, xlab = '', ylab = '', main = '')
   text(x=0.45, y = seq(0.37,0.52,l=2), labels = seq(min(beta.treatvar.out$con.var), max(beta.treatvar.out$con.var), length.out=2), cex=1.6)
   rasterImage(legend_image, 0.1, 0.34, 0.25, 0.55)
-  text(x=0.3, y=0.66, labels = "Treatment", cex=1.2)
+  text(x=0.3, y=0.66, labels = "Treatment", cex=1.4)
 
   legend("right", legend = levels(beta.outvar.out$bin.var), title = "Outcome",
-         fil = c("orangered3", "royalblue4", cex=2.5, box.lty=0), bty = "n", cex=1.2)
-  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.2)
+         fil = c("orangered3", "royalblue4", cex=2.5, box.lty=0), bty = "n", cex=1.4)
+  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.4)
 
 }
 
@@ -761,13 +760,13 @@ MedTest.bin.con.plot2 = function(med.test.out, beta.treatvar.out, beta.outvar.ou
   
   legend_image <- as.raster(matrix(color.palette, ncol=1))
   plot(c(0,4),c(0,1),type = 'n', axes = F, xlab = '', ylab = '', main = '')
-  text(x=3.65, y = seq(0.37,0.52,l=2), labels = seq(min(beta.outvar.out$con.var), max(beta.outvar.out$con.var), length.out=2), cex=1.2)
+  text(x=3.65, y = seq(0.37,0.52,l=2), labels = seq(min(beta.outvar.out$con.var), max(beta.outvar.out$con.var), length.out=2), cex=1.4)
   rasterImage(legend_image, 2.65, 0.34, 2.95, 0.55)
-  text(x=3.4, y=0.66, labels = "Outcome", cex=1.6)
+  text(x=3.4, y=0.66, labels = "Outcome", cex=1.4)
   
   legend("left", legend = levels(beta.treatvar.out$bin.var), title = "Treatment",
-         fil = c("golden rod", "darkgreen", cex=2.5, box.lty=0), bty = "n", cex=1.2)
-  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.2)
+         fil = c("golden rod", "darkgreen", cex=2.5, box.lty=0), bty = "n", cex=1.4)
+  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.4)
 
 }
 
@@ -876,11 +875,11 @@ MedTest.con.con.plot2 = function(med.test.out, beta.treatvar.out, beta.outvar.ou
   text(x=0.6, y=0.66, labels = "Treatment", cex=1.6)
   
   legend_image2 <<- as.raster(matrix(color.palette2, ncol=1))
-  text(x=3.65, y = seq(0.37,0.52,l=2), labels = seq(min(beta.outvar.out$con.var), max(beta.outvar.out$con.var), length.out=2), cex=1.2)
+  text(x=3.65, y = seq(0.37,0.52,l=2), labels = seq(min(beta.outvar.out$con.var), max(beta.outvar.out$con.var), length.out=2), cex=1.4)
   rasterImage(legend_image2, 2.65, 0.34, 2.95, 0.55)
-  text(x=3.4, y=0.66, labels = "Outcome", cex=1.2)
+  text(x=3.4, y=0.66, labels = "Outcome", cex=1.4)
   
-  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.2)
+  legend("bottom", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.4)
   
 }
 
