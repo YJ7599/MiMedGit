@@ -284,7 +284,9 @@ MedTest.bin.bin.plot = function(med.test.out, beta.treatvar.out, beta.outvar.out
          fil = c("golden rod", "darkgreen", cex=2.0, box.lty=0), bty = "n", cex=1.2)
   legend("right", title = "Outcome", legend = levels(beta.outvar.out$bin.var),
          fil = c("orangered3", "royalblue4", cex=2.0, box.lty=0), bty = "n", cex=1.2)
-  legend("bottom right", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n", cex=1.2)
+   op <- par(cex = 1.0)
+  
+  legend("bottom right", paste("Omnibus MedTest: ", P_value(med.test.out$permP), sep=""), bty = "n")
   
 }
 
