@@ -2857,7 +2857,9 @@ server <- function(input, output, session) {
         ## Calculating MedTest
         incProgress(1/10, message = "Calculating MedTest")
         
-        Med.test.out <<- try(MedTest(Data.na, beta.Mediator.na, c("age", "sex"), "ecig_status", "gingival_inflammation", n.perm=1000), silent = TRUE) 
+        #Med.test.out <<- try(MedTest(Data.na, beta.Mediator.na, c("age", "sex"), "ecig_status", "gingival_inflammation", n.perm=1000), silent = TRUE) 
+        
+        Med.test.out <<- try(MedTest(Data.na, beta.Mediator.na, MedTest.covariates, Treatment, Outcome, n.perm=1000), silent = TRUE)
         
         if (Treatment.type == "Binary") {
           beta.Treatvar.out <<- try(beta.bin.out.func(beta.Data, Ds.Ks, Treatment,
