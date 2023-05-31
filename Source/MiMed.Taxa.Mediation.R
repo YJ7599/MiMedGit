@@ -400,14 +400,11 @@ mediation.taxon.ind <- function(sam.dat, taxon_med, taxa_uniq_name,
           }
         }
         
-        med.out[[med]] <- med.result 
-        
         acme.average[med, ] <- rep(NA, 4)
         acme.control[med,] <-  rep(NA, 4)
         acme.treated[med,] <- rep(NA, 4)
         ade.average[med,] <- rep(NA, 4)
         total[med,] <- rep(NA, 4)
-        
         
       }else{
         if (inc){
