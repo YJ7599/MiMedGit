@@ -339,7 +339,7 @@ mediation.taxon.ind <- function(sam.dat, taxon_med, taxa_uniq_name,
                                 exposure, covariates, 
                                 outcome, interaction = TRUE, 
                                 regression.method = "logistic", 
-                                method = "bootstrap", boot.method, n.sim = 1000, inc, rank){
+                                method = "bootstrap", boot.method, n.sim = 100, inc, rank){
   
   final_list <- list() 
   
@@ -603,7 +603,7 @@ mediation.taxon.total <- function(sam.dat, taxa, taxa_unique,
                                 exposure, covariates, 
                                 outcome, interac = TRUE, 
                                 regression.method = "logistic", 
-                                method = "bootstrap", boot.method.po, n.sim = 1000, inc){
+                                method = "bootstrap", boot.method.po, n.sim = 100, inc){
    
   outcome.type <<- binary_cont(sam.dat[,outcome])
   treat.type <<- binary_cont(sam.dat[,exposure])
