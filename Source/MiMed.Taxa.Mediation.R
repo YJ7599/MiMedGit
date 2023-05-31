@@ -391,14 +391,14 @@ mediation.taxon.ind <- function(sam.dat, taxon_med, taxa_uniq_name,
       if(med %in% colnames(taxon.med)[taxa_uniq_name]){
         print("inside")
         
-        # if (inc){
-        #   incProgress(0.1/length(mediator.list), message = paste0("Calculating: ", c("Phylum", "Class", "Order", "Family", "Genus", "Species")[rank], "_", lapply(strsplit(med, split = "_"), tail, n = 1)))
-        # 
-        # }else{
-        #   if (as.numeric(rank) != 6){
-        #     incProgress(0.13/length(mediator.list), message = paste0("Calculating: ", c("Phylum", "Class", "Order", "Family", "Genus")[rank], "_", lapply(strsplit(med, split = "_"), tail, n = 1)))
-        #   }
-        # }
+        if (inc){
+          incProgress(0.1/length(mediator.list), message = paste0("Calculating: ", c("Phylum", "Class", "Order", "Family", "Genus", "Species")[rank], "_", lapply(strsplit(med, split = "_"), tail, n = 1)))
+
+        }else{
+          if (as.numeric(rank) != 6){
+            incProgress(0.13/length(mediator.list), message = paste0("Calculating: ", c("Phylum", "Class", "Order", "Family", "Genus")[rank], "_", lapply(strsplit(med, split = "_"), tail, n = 1)))
+          }
+        }
         
         med.out[[med]] <- med.result 
         
@@ -410,14 +410,14 @@ mediation.taxon.ind <- function(sam.dat, taxon_med, taxa_uniq_name,
         
         
       }else{
-        # if (inc){
-        #   incProgress(0.1/length(mediator.list), message = paste0("Calculating: ", c("Phylum", "Class", "Order", "Family", "Genus", "Species")[rank], "_", lapply(strsplit(med, split = "_"), tail, n = 1)))
-        # 
-        # }else{
-        #   if (as.numeric(rank) != 6){
-        #     incProgress(0.13/length(mediator.list), message = paste0("Calculating: ", c("Phylum", "Class", "Order", "Family", "Genus")[rank], "_", lapply(strsplit(med, split = "_"), tail, n = 1)))
-        #   }
-        # }
+        if (inc){
+          incProgress(0.1/length(mediator.list), message = paste0("Calculating: ", c("Phylum", "Class", "Order", "Family", "Genus", "Species")[rank], "_", lapply(strsplit(med, split = "_"), tail, n = 1)))
+
+        }else{
+          if (as.numeric(rank) != 6){
+            incProgress(0.13/length(mediator.list), message = paste0("Calculating: ", c("Phylum", "Class", "Order", "Family", "Genus")[rank], "_", lapply(strsplit(med, split = "_"), tail, n = 1)))
+          }
+        }
         
         if (length(covariates) != 0){
           f1 <<- as.formula(paste(med, "~", exposure, "+", paste(covariates, collapse = "+"), sep = " "))
