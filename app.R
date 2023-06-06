@@ -479,7 +479,7 @@ server <- function(input, output, session) {
 
   env_4 <- new.env()
   nm_4 <- load(file = "Data/FM.Rdata", env_4)[1]
-  FM <- env_3[[nm_4]]
+  FM <- env_4[[nm_4]]
   
   B.otu.tab <- otu_table(FTMP)
   B.tax.tab <- tax_table(FTMP)
