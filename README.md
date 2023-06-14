@@ -16,15 +16,11 @@ Imports: Bioconductor ('BiocParallel', 'biomformat', 'phyloseq'); CRAN ('betareg
 
 License: GPL 1, GPL 2 
 
-## URLs
+**URLs**: Web Server (http://mimed.micloud.kr), GitHub (http://github.com/yj7599/MiMedGit) 
 
-* Web application (online implementation): http://mimed.micloud.kr
-* GitHub repository (local implementation): https://github.com/yj7599/MiMedGit
+**Maintainer**: Hyojung Jang (hyojung.jang@stonybrook.edu)
 
-## References
-
-* Jang H, Park S, Koh H. (2023) Comprehensive microbiome causal mediation analysis using MiMed on user-friendly web interfaces (*In review*). 
-
+**Reference**: Jang H, Park S, Koh H. (2023) Comprehensive microbiome causal mediation analysis using MiMed on user-friendly web interfaces (*In review*). 
 
 ## Prerequites
 
