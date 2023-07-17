@@ -484,7 +484,7 @@ server <- function(input, output, session) {
   B.otu.tab <- otu_table(FTMP)
   B.tax.tab <- tax_table(FTMP)
   B.tree <- phy_tree(FTMP)
-  B.sam.dat <- sample_data(FTMP)
+  B.sam.dat <- data.frame(sample_data(FTMP))
   
   output$downloadData.1 <- downloadHandler(
     filename = function() {
@@ -636,13 +636,6 @@ server <- function(input, output, session) {
       } 
       else if (input$inputOption == "Individual Data") {
         shinyjs::hide(id = "optionsInfo")
-        
-        
-        if (is.null(input$otuTable) | is.null(input$samData)){
-          showNotification(h4("The minimum requirements are sample data and feature table!"),
-                           type = "message")
-        }
-        
         output$moreOptions <- renderUI({
           tagList(
             tags$style("
@@ -659,8 +652,7 @@ server <- function(input, output, session) {
                       accept = c(".txt", ".csv"), width = '80%'), div(style = "margin-top: -15px"),
             fileInput("tree", strong("Please upload your phylogenetic tree (.tre, .nwk)", style = "color:black"), 
                       accept = c(".tre", ".nwk"), width = '80%'), div(style = "margin-top: -15px"),
-            actionButton('Load_Individual_Data', 'Upload', class = "btn-info",
-                         style="color: #000000; background-color: #FFFFFF; border-color: #2C3E50"), br(),br(),
+            actionButton('Load_Individual_Data', 'Upload', class = "btn-info"), br(),br(),
             shinyjs::hidden(
               shiny::div(id = "textfilesUpload_error",
                          shiny::tags$p("Please upload txt and tre files!!",
@@ -669,6 +661,7 @@ server <- function(input, output, session) {
             INPUT_INDIVIDUAL_DATA_COMMENT
           )
         })
+        
         output$addDownloadinfo <- renderUI({
           tagList(
             box(title = strong("Example Data", style = "color:white"), width = NULL, status = "primary", solidHeader = TRUE,
