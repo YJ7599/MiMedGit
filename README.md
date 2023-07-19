@@ -41,5 +41,5 @@ runGitHub('MiMedGit', 'yj7599', ref = 'main')
 
 ## Troubleshooting Tips
 
-If you have any problems for using MiMed, please report in issues (https://github.com/YJ7599/MiMedGit/issues) or email Hyo Jung Jang (hyojung.jang@stonybrook.edu).
+If you have any problems for using MiMed, please report in issues (https://github.com/YJ7599/MiMedGit/issues) or email Hyo Jung Jang (hyojung.jang@northwestern.edu).
 
