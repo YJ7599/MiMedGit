@@ -579,10 +579,6 @@ server <- function(input, output, session) {
     observe({
       if (input$inputOption == "Phyloseq") {
         
-        showNotification(h4("The minimum requirements are sample data and feature table!"),
-                         type = "message")
-       
-        
         shinyjs::hide(id = "optionsInfo")     
         
         output$moreOptions <- renderUI({
