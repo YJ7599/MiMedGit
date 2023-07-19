@@ -4,7 +4,7 @@ Title: Comprehensive microbiome causal mediation analysis using MiMed on user-fr
 
 Version: 1.0.0
 
-Maintainer: Hyo Jung Jang <hyojung.jang@stonybrook.edu>
+Maintainer: Hyo Jung Jang <hyojung.jang@northwestern.edu>
 
 Description: MiMed is a unified web cloud platform for microbiome mediation analysis that probes for the roles of the microbiome as a mediator that transmits the effect of a treatment (e.g., environmental, behavioral or medical exposures) to an outcome (e.g., health or disease status). The main features of MiMed are as follows. First, MiMed can survey the microbiome in various spheres (1) as a whole microbial ecosystem using different ecological measures (e.g., alpha- and beta-diversity indices) (referred as Community-level Analysis) or (2) as individual microbial taxa (e.g., phyla, classes, orders, families, genera, species) using different data normalization methods (referred as Taxonomy-level Analysis). Second, MiMed enables covariate-adjusted analysis to control for potential confounding factors (e.g., age, gender), which is essential to enhance the causality of the results especially for observational studies. Third, MiMed enables a breadth of statistical inferences in both mediation effect estimation and significance testing. Finally, MiMed provides flexible and easy-to-use data processing and analytic modules and makes nice graphical representations.
 
