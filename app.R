@@ -4456,10 +4456,10 @@ server <- function(input, output, session) {
               showModal(modalDialog(div("No outcome is available!")))
               return(NULL)})
             
-            #result_dact_ori <<- result_dact_ind 
-            #result_dact_ind <<- med_result_concate_dact(taxa, result_dact_ind, taxa_unique, include)
+            result_dact_ori <<- result_dact_ind 
+            result_dact_ind <<- med_result_concate_dact(taxa, result_dact_ind, taxa_unique, include)
               
-            #result_dact_ind <<- q_convert_tax_dact(result_dact_ind, include)
+            result_dact_ind <<- q_convert_tax_dact(result_dact_ind, include)
             
             result_dact <<- tryCatch(tax.dact(result_dact_ind, correct, inc = include), error = function(e) {  
               message("No outcome is available!")
@@ -4486,10 +4486,10 @@ server <- function(input, output, session) {
               showModal(modalDialog(div("No outcome is available!")))
               return(NULL)})
             
-            #result_dact_ori <<- result_dact_ind 
-            #result_dact_ind <<- med_result_concate_dact(taxa, result_dact_ind, taxa_unique, include)
+            result_dact_ori <<- result_dact_ind 
+            result_dact_ind <<- med_result_concate_dact(taxa, result_dact_ind, taxa_unique, include)
             
-            #result_dact_ind <<- q_convert_tax_dact(result_dact_ind, include)
+            result_dact_ind <<- q_convert_tax_dact(result_dact_ind, include)
             
             
             result_dact <<- tryCatch(tax.dact(result_dact_ind, correct, inc = include), 
