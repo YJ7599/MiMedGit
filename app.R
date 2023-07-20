@@ -4684,9 +4684,9 @@ server <- function(input, output, session) {
           for (i in 1:5+include){
             result_down[[i]] <- list(result_dact_med[[i]], result_dact_out[[i]],  result_dact[[i]])
             if(interaction_taxa){
-              names(result_down[[i]]) <- c("Med - Ind", "Dep - Med * Ind", "Sobel Test")
+              names(result_down[[i]]) <- c("Med - Ind", "Dep - Med * Ind", "DACT")
             }else{
-              names(result_down[[i]]) <- c("Med - Ind", "Dep - Med + Ind", "Sobel Test")
+              names(result_down[[i]]) <- c("Med - Ind", "Dep - Med + Ind", "DACT")
             }
           }
           
