@@ -61,7 +61,7 @@ source("Source/MiMed.Taxa.Mediation.R")
                     "; GitHub repository (local implementation):", 
                     tags$a(href = "https://github.com/yj7599/mimedgit", "https://github.com/yj7599/mimedgit"), style = "font-size:13pt")
   HOME_COMMENT3 = p(strong("Maintainer:"), " Hyojung Jang (", tags$a(href = "hyojung.jang@northwestern.edu", "hyojung.jang@northwestern.edu"), 
-                    "); Solha Park (", tags$a(href = "solha.park@northwestern.edu", "solha.park@northwestern.edu"), ")", style = "font-size:13pt")
+                    "); Solha Park (", tags$a(href = "solha.park@stonybrook.edu", "solha.park@stonybrook.edu"), ")", style = "font-size:13pt")
   HOME_COMMENT4 = p(strong("Reference:"), " Jang*, H., Park*, S., Koh*, H. Comprehensive microbiome causal mediation analysis using MiMed on user-friendly web interfaces. (Submitted).", style = "font-size:13pt")
   
   INPUT_PHYLOSEQ_COMMENT1 = p(strong("Notice:"), "This should be an '.Rdata' or '.rds' file, and the data should be in the 'phyloseq' format", br(), 
