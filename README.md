@@ -20,7 +20,7 @@ License: GPL 1, GPL 2
 
 **Maintainer**: Hyojung Jang (hyojung.jang@northwestern.edu)
 
-**Reference**: Jang H, Park S, Koh H. (2023) Comprehensive microbiome causal mediation analysis using MiMed on user-friendly web interfaces. (*In review*). 
+**Reference**: Jang, H., Park, S., Koh, H. (2023) Comprehensive microbiome causal mediation analysis using MiMed on user-friendly web interfaces. Biology Methods and Protocols, 8(1), bpad023.
 
 ## Prerequites
 
